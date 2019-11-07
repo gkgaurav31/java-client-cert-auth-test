@@ -10,6 +10,7 @@ import java.util.Base64;
 
 import javax.xml.bind.DatatypeConverter;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,10 +37,15 @@ public class HelloController {
 		        MessageDigest.getInstance("SHA-1").digest(
 		                cert.getEncoded())).toLowerCase();
 		
-		if(thumpprint.equals("CERTIFICATE_THUMBPRINT")) {
+		if(thumpprint.equals("*******")) {
 			return "Welcome!";
 		}
-		return "Sorry, authorization failure.";
+		return "Sorry, authorization failure. Thumbprint: " + thumpprint;
 	}
-
+	
+	@GetMapping(value="/ip")
+	public String testMethod() {
+		return "Access granted!";
+	}
+	
 }
